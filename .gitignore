@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+# Sublime
+*.sublime-workspace
+
+# Clang temporary files
+*plist
+
+# Release files
+release/*

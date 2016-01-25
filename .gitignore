@@ -20,3 +20,20 @@
 
 # Release files
 release/*
+
+# Log files
+*.log
+
+# Linux executable
+*.out
+
+# Input & Output data
+*.in
+*.out
+
+# Precompile files
+*.pch
+*.gch
+
+# Python cache
+__pycache__/*

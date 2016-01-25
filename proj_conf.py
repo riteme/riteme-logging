@@ -7,7 +7,7 @@ SOURCES = [
     './src/*.cpp'
 ]
 
-VERSION = '0.0.1'
+VERSION = '0.1.0'
 
 # 指定编译器
 COMPILER = 'g++'
@@ -45,7 +45,7 @@ COMPILER_OTHER_PARAMETERS = [
 # shared: 编译成动态库
 # executable: 编译成可执行文件
 OUTPUT_MODE = 'shared'
-OUTPUT_LOCATION = './release/librlog.so'
+OUTPUT_LOCATION = './release/librilog.so'
 OUTPUT_WITH_VERSION = True
 OUTPUT_LINK_TO_LATEST = True
 

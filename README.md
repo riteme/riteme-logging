@@ -1,6 +1,9 @@
 # riteme-logging
 A simple logger.
 
+# Status
+Current version: V0.2.0 beta
+
 # Features
 * Simple interfaces
 * Easy to extend

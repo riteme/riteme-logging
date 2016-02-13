@@ -12,8 +12,8 @@ using namespace std;
 using namespace std::chrono;
 using namespace ri;
 
-void output(FormatConfig *config, Logger *logger, int id) {
-    config->SetThreadName(fmt::format("Thread #{}", id));
+void output(Logger *logger, int id) {
+    logger->GetFormatter().SetCurrentThreadName(fmt::format("Thread #{}", id));
 
     logger->SetLevel(LogType::Debug);
     logger->Debug("Hello!");
@@ -40,21 +40,17 @@ void output(FormatConfig *config, Logger *logger, int id) {
 }
 
 int main() {
-    FormatConfig config;
-    DefaultFormatter formatter;
-    formatter.SetConfig(config);
-
-    config.SetThreadName("Main Thread");
-    config.FieldName = "Test";
-    config.DateFormat = "%F, %T";
-    config.DateBufferSize = 64;
-    config.MessageFormat = "{date} / {field} / {thread} / {logtype}: {text}";
+    Logger logger;
+    logger.GetFormatter().SetCurrentThreadName("Main Thread");
+    logger.GetFormatter().SetFieldName("Test");
+    logger.GetFormatter().SetDateFormat("%F, %T");
+    logger.GetFormatter().SetDateBufferSize(64);
+    logger.GetFormatter().SetMessageFormat(
+        "{date} / {field} / {thread} / {logtype}: {text}");
 
     DefaultWriter writer;
     FileWriter logfile("output.log");
 
-    Logger logger;
-    logger.AttachFormatter(&formatter);
     logger.AttachWriter(&writer);
     logger.AttachWriter(&logfile);
 
@@ -78,7 +74,7 @@ int main() {
     thread t[24];
     int i = 1;
     for (auto &e : t) {
-        e = thread(output, &config, &logger, i);
+        e = thread(output, &logger, i);
         i++;
     }  // foreach in t
 

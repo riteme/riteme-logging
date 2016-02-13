@@ -23,7 +23,11 @@ class Logger final {
     ~Logger() = default;
 
     void AttachFormatter(Formatter *formatter) {
-        m_pFormatter = formatter;
+        if (formatter == nullptr) {
+            m_pFormatter = &m_default_formatter;
+        } else {
+            m_pFormatter = formatter;
+        }
     }
 
     void AttachWriter(Writer *writer) {
@@ -31,11 +35,23 @@ class Logger final {
     }
 
     void DetachFormatter() {
-        m_pFormatter = nullptr;
+        m_pFormatter = &m_default_formatter;
     }
 
-    void DetachWriter() {
+    void DetachWriter(const Writer *writer) {
+        auto iter = std::find(m_writers.begin(), m_writers.end(), writer);
+
+        if (iter != m_writers.end()) {
+            m_writers.erase(iter);
+        }
+    }
+
+    void DetachAllWriter() {
         m_writers.clear();
+    }
+
+    auto GetFormatter() -> Formatter & {
+        return *m_pFormatter;
     }
 
     void SetLevel(const LogType &level) {
@@ -109,7 +125,8 @@ class Logger final {
 
  private:
     LogType m_level = LogType::Info;
-    Formatter *m_pFormatter = nullptr;
+    DefaultFormatter m_default_formatter;
+    Formatter *m_pFormatter = &m_default_formatter;
     std::vector<Writer *> m_writers;
 };  // class Logger
 

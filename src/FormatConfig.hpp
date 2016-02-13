@@ -47,11 +47,15 @@ struct FormatConfig {
      */
     std::unordered_map<std::thread::id, std::string> ThreadMap;
 
+    void SetThreadName(const std::thread::id &id, const std::string &name) {
+        ThreadMap[id] = name;
+    }
+
     /**
      * 设置当前线程的名称
      * @param name 名称
      */
-    void SetThreadName(const std::string &name){
+    void SetCurrentThreadName(const std::string &name) {
         ThreadMap[std::this_thread::get_id()] = name;
     }
 };  // struct FormatConfig

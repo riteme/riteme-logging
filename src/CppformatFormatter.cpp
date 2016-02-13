@@ -20,10 +20,19 @@ auto CppformatFormatter::Format(const Message &message) const -> std::string {
     strftime(buffer, m_pConfig->DateBufferSize, m_pConfig->DateFormat.data(),
              timeinfo);
     std::string date = buffer;
+    auto thread_name_iter = ThreadMap.find(message.ThreadID);
+    std::string thread_name;
 
-    return fmt::format(m_pConfig->MessageFormat, "date"_a = date,
+    if (thread_name_iter == ThreadMap.end()) {
+        thread_name = "Unknown Thread";
+    } else {
+        thread_name = *thread_name_iter;
+    }
+
+    return fmt::format(m_pConfig->MessageFormat,
+                       "date"_a = date,
                        "field"_a = m_pConfig->FieldName,
-                       "thread"_a = m_pConfig->ThreadMap.at(message.ThreadID),
+                       "thread"_a = thread_name,
                        "logtype"_a = logtype[message.LogType],
                        "LOGTYPE"_a = LOGTYPE[message.LogType],
                        "text"_a = message.Text);

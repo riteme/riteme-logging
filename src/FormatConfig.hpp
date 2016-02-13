@@ -27,12 +27,14 @@ struct FormatConfig {
      * 日志消息格式。
      * 使用cppformat进行格式化。
      * 格式字符窜中可以使用以下变量：
+     *
      * * date:     表示日期，可用DateFormat来设定
      * * field:    表示程序的名称，例如Server, Client
      * * thread:   线程的名称，用FormatConfig中所设定的
      * * logtype:  小写的日志类别，如Debug, Info, Warning，可配置
      * * LOGTYPE:  大写的日志类别，如DEBUG, INFO, WARN，可配置
      * * text:     日志类容
+     *
      * 变量名用打括号包含
      */
     std::string MessageFormat = "[{date}][{thread}][{LOGTYPE}] {text}";
@@ -47,6 +49,11 @@ struct FormatConfig {
      */
     std::unordered_map<std::thread::id, std::string> ThreadMap;
 
+    /**
+     * 设置线程的名称
+     * @param id   线程ID
+     * @param name 线程的名称
+     */
     void SetThreadName(const std::thread::id &id, const std::string &name) {
         ThreadMap[id] = name;
     }

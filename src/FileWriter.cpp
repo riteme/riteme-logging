@@ -29,6 +29,10 @@ void FileWriter::Flush() {
 }
 
 void FileWriter::Open(const std::string &file) {
+    if (IsOpened()) {
+        Close();
+    }
+
     m_file.open(file);
 
     if (!IsOpened()) {

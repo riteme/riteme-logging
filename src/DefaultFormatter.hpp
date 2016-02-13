@@ -9,6 +9,9 @@
 
 namespace ri {
 
+/**
+ * 默认使用cppformat
+ */
 typedef CppformatFormatter DefaultFormatter;
 
 }  // namespace ri

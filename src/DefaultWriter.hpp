@@ -9,6 +9,9 @@
 
 namespace ri {
 
+/**
+ * 默认将输出导出至控制台
+ */
 typedef ConsoleWriter DefaultWriter;
 
 }  // namespace ri
